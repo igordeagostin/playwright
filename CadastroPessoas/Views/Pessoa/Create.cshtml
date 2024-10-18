@@ -1,0 +1,67 @@
+﻿@model CadastroPessoas.Models.Pessoa
+
+<h2>Criar Pessoa</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Nome"></label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <h4>Endereços</h4>
+    <div id="addresses">
+        <div class="address-item">
+            <div class="form-group">
+                <label>Rua</label>
+                <input name="Enderecos[0].Rua" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Cidade</label>
+                <input name="Enderecos[0].Cidade" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Estado</label>
+                <input name="Enderecos[0].Uf" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <button type="button" onclick="addAddress()">Adicionar Endereço</button>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+<div>
+    <a href="/Pessoa">Voltar para Lista</a>
+</div>
+
+@section Scripts {
+    <script>
+        var addressIndex = 1;
+
+        function addAddress() {
+            var addressHtml = `
+            <div class="address-item">
+                <div class="form-group">
+                    <label>Rua</label>
+                    <input name="Enderecos[${addressIndex}].Rua" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Cidade</label>
+                            <input name="Enderecos[${addressIndex}].Cidade" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Estado</label>
+                    <input name="Enderecos[${addressIndex}].Uf" class="form-control" />
+                </div>
+            </div>`;
+            document.getElementById('addresses').insertAdjacentHTML('beforeend', addressHtml);
+            addressIndex++;
+        }
+    </script>
+}
